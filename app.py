@@ -51,18 +51,25 @@ def main():
     # グラフのプロット
     st.write(f'cross product: {cross}')
     fig = plt.figure()
-    ax = fig.gca(projection='3d')
+    ax = fig.add_subplot(111, projection='3d')
     ax.set_xlim([-10,10])
     ax.set_ylim([-10,10])
     ax.set_zlim([-10,10])
     ax.set(xlabel='x', ylabel='y', zlabel='z')
-    origin = np.zeros((3,3))
+    origin = np.zeros(3)
     vectors = np.array((va,vb,cross))
-    cmap = cm.get_cmap(name='rainbow')
-
-    ax.quiver(origin[:,0],origin[:,1],origin[:,2],
-              vectors[:,0],vectors[:,1],vectors[:,2],
-              colors=['blue', 'green', 'red'])
+    colors = ['blue', 'green', 'red']
+    for i, v in enumerate(vectors):
+        vlength=np.linalg.norm(v)
+        if vlength == 0:
+            arrow_length_ratio = 1
+        else:
+            arrow_length_ratio = 0.3/vlength
+        ax.quiver(0,0,0,
+                v[0],v[1],v[2],
+                length=vlength, arrow_length_ratio=arrow_length_ratio,
+                color=colors[i])
+        ax.text(v[0],v[1],v[2], f'({v[0]},{v[1]},{v[2]})', color = colors[i], size = 8)
     st.pyplot(fig)
 
 
