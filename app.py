@@ -56,7 +56,6 @@ def main():
     ax.set_ylim([-10,10])
     ax.set_zlim([-10,10])
     ax.set(xlabel='x', ylabel='y', zlabel='z')
-    origin = np.zeros(3)
     vectors = np.array((va,vb,cross))
     colors = ['blue', 'green', 'red']
     for i, v in enumerate(vectors):
